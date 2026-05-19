@@ -1,0 +1,9 @@
+title: "Root Reader"
+description: |
+  Internal diagnostic challenge.
+category: Web
+difficulty: EASY
+points: 1
+flag: "HACKIN{dummy}"
+docker:
+  file: "docker-compose.yml"

